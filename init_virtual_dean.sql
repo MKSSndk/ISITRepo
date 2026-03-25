@@ -1,3 +1,6 @@
+\encoding UTF8
+SET client_encoding TO 'UTF8';
+
 DROP TABLE IF EXISTS grades CASCADE;
 DROP TABLE IF EXISTS classes CASCADE;
 DROP TABLE IF EXISTS student_groups CASCADE;
@@ -243,36 +246,36 @@ INSERT INTO role_permissions (role_id, object_name, action_name)
 SELECT id, 'directions', 'read_self' FROM roles WHERE name = 'applicant';
 
 INSERT INTO students (student_card_number, last_name, first_name, middle_name, status, enrollment_date) VALUES
-('ST-001', 'Petrov', 'Ivan', 'Alekseevich', 'active', '2024-09-01'),
-('ST-002', 'Sidorova', 'Anna', 'Igorevna', 'active', '2024-09-01'),
-('ST-003', 'Kuznetsov', 'Maksim', 'Olegovich', 'academic_leave', '2023-09-01');
+('ST-001', 'Петров', 'Иван', 'Алексеевич', 'Активный', '2024-09-01'),
+('ST-002', 'Сидорова', 'Анна', 'Игоревна', 'Активный', '2024-09-01'),
+('ST-003', 'Кузнецов', 'Максим', 'Олегович', 'В академ отпуске', '2023-09-01');
 
 INSERT INTO teachers (last_name, first_name, middle_name, department, email) VALUES
-('Ivanov', 'Sergey', 'Petrovich', 'Informatics Department', 'ivanov@university.local'),
-('Smirnova', 'Elena', 'Viktorovna', 'Mathematics Department', 'smirnova@university.local');
+('Иванов', 'Сергей', 'Петрович', 'Кафедра информатики', 'ivanov@university.local'),
+('Смирнова', 'Елена', 'Викторовна', 'Кафедра математики', 'smirnova@university.local');
 
 INSERT INTO applicants (
     last_name, first_name, middle_name, birth_date,
     passport_series, passport_number, phone, email, snils,
     registration_date, status
 ) VALUES
-('Ivanov', 'Pavel', 'Sergeevich', '2007-05-14', '4510', '123456', '+79990000001', 'ivanov.pavel@mail.com', '123-456-789 01', '2026-06-20', 'submitted'),
-('Smirnova', 'Alina', 'Olegovna', '2007-09-22', '4511', '654321', '+79990000002', 'smirnova.alina@mail.com', '123-456-789 02', '2026-06-21', 'confirmed'),
-('Kozlov', 'Denis', 'Igorevich', '2006-12-03', '4512', '777888', '+79990000003', 'kozlov.denis@mail.com', '123-456-789 03', '2026-06-22', 'enrolled');
+('Иванов', 'Павел', 'Сергеевич', '2007-05-14', '4510', '123456', '+79990000001', 'ivanov.pavel@mail.com', '123-456-789 01', '2026-06-20', 'Не прошел'),
+('Смирнова', 'Алина', 'Олеговна', '2007-09-22', '4511', '654321', '+79990000002', 'smirnova.alina@mail.com', '123-456-789 02', '2026-06-21', 'Утвержден'),
+('Козлов', 'Денис', 'Игоревич', '2006-12-03', '4512', '777888', '+79990000003', 'kozlov.denis@mail.com', '123-456-789 03', '2026-06-22', 'Поступил');
 
 INSERT INTO directions (code, name, education_level, study_form, active) VALUES
-('09.03.01', 'Informatics and Computer Engineering', 'bachelor', 'full-time', TRUE),
-('09.03.02', 'Information Systems and Technologies', 'bachelor', 'full-time', TRUE),
-('01.03.02', 'Applied Mathematics and Informatics', 'bachelor', 'full-time', TRUE);
+('09.03.01', 'Информатика и вычислительная техника', 'Бакалавриат', 'Очно', TRUE),
+('09.03.02', 'Информационные системы и технологии', 'Бакалавриат', 'Очно', TRUE),
+('01.03.02', 'Прикладная математика и информатика', 'Бакалавриат', 'Очно', TRUE);
 
 INSERT INTO applicant_applications (applicant_id, direction_id, application_status, application_date) VALUES
-(1, 1, 'submitted', '2026-06-20'),
-(1, 2, 'confirmed', '2026-06-21'),
-(2, 3, 'submitted', '2026-06-21');
+(1, 1, 'Не прошел', '2026-06-20'),
+(1, 2, 'Утвержден', '2026-06-21'),
+(2, 3, 'Поступил', '2026-06-21');
 
 INSERT INTO groups_tbl (name, year_of_admission, course, active) VALUES
-('PI-101', 2024, 2, TRUE),
-('PI-201', 2023, 3, TRUE);
+('ИДБ-24-15', 2024, 2, TRUE),
+('ИДБ-23-11', 2023, 3, TRUE);
 
 INSERT INTO student_groups (student_id, group_id, start_date, end_date) VALUES
 (1, 1, '2024-09-01', NULL),
@@ -280,26 +283,26 @@ INSERT INTO student_groups (student_id, group_id, start_date, end_date) VALUES
 (3, 2, '2023-09-01', NULL);
 
 INSERT INTO disciplines (name, credits, description) VALUES
-('Databases', 4, 'Database fundamentals'),
-('Python Programming', 5, 'Python application development'),
-('Mathematical Analysis', 6, 'Basic mathematics course');
+('Базы Данных', 4, 'База по Базам Данных'),
+('ООП', 5, 'Основы одной из популярных парадигм программирования'),
+('Математический анализ', 6, 'Базовый курс математического анализа');
 
 INSERT INTO classes (discipline_id, group_id, teacher_id, class_date, time_start, time_end, class_type) VALUES
-(1, 1, 1, '2026-03-25', '09:00', '10:30', 'Lecture'),
-(2, 1, 1, '2026-03-26', '10:45', '12:15', 'Practice'),
-(3, 2, 2, '2026-03-27', '12:30', '14:00', 'Lecture');
+(1, 1, 1, '2026-03-25', '09:00', '10:30', 'Лекция'),
+(2, 1, 1, '2026-03-26', '10:45', '12:15', 'Семинар'),
+(3, 2, 2, '2026-03-27', '12:30', '14:00', 'Лекция');
 
 INSERT INTO grades (student_id, discipline_id, teacher_id, grade, grade_date, comment) VALUES
-(1, 1, 1, 90, '2026-03-10', 'Excellent'),
-(1, 2, 1, 85, '2026-03-12', 'Good'),
-(2, 1, 1, 78, '2026-03-10', 'Not bad'),
-(2, 2, 1, 88, '2026-03-12', 'Confident'),
-(3, 3, 2, 67, '2026-03-11', 'Needs improvement');
+(1, 1, 1, 52, '2026-03-10', 'Отлично'),
+(1, 2, 1, 44, '2026-03-12', 'Хорошо'),
+(2, 1, 1, 26, '2026-03-10', 'Удовлетворительно'),
+(2, 2, 1, 24, '2026-03-12', 'Неуд'),
+(3, 3, 2, 45, '2026-03-11', 'Отлично');
 
 INSERT INTO users (username, password_hash, full_name, role_id, student_id)
 SELECT 'student',
        '703b0a3d6ad75b649a28adde7d83c6251da457549263bc7ff45ec709b0a8448b',
-       'Student Petrov',
+       'Студент Петров',
        id,
        1
 FROM roles WHERE name = 'student';
@@ -307,7 +310,7 @@ FROM roles WHERE name = 'student';
 INSERT INTO users (username, password_hash, full_name, role_id, teacher_id)
 SELECT 'teacher',
        'cde383eee8ee7a4400adf7a15f716f179a2eb97646b37e089eb8d6d04e663416',
-       'Teacher Ivanov',
+       'Иван Преподаватель',
        id,
        1
 FROM roles WHERE name = 'teacher';
@@ -315,7 +318,7 @@ FROM roles WHERE name = 'teacher';
 INSERT INTO users (username, password_hash, full_name, role_id, applicant_id)
 SELECT 'applicant',
        '255f39b6bcf7c09a1cc783c0812c1ea888a257fba5072de7a9f2a76e7e8c5985',
-       'Ivan Abiturientov',
+       'Иван Абитуриентов',
        id,
        1
 FROM roles WHERE name = 'applicant';
@@ -323,13 +326,13 @@ FROM roles WHERE name = 'applicant';
 INSERT INTO users (username, password_hash, full_name, role_id)
 SELECT 'admin',
        '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9',
-       'System Administrator',
+       'Системный администратор',
        id
 FROM roles WHERE name = 'admin';
 
 INSERT INTO users (username, password_hash, full_name, role_id)
 SELECT 'dean',
        '45ca6bc1a91a4764e6899ebdfd4a15340d18dc00a264ccee75ecfce1d2df5733',
-       'Dean',
+       'Декан',
        id
 FROM roles WHERE name = 'dean';

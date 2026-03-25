@@ -31,7 +31,7 @@ from services import (
 class LoginWindow:
     def __init__(self, root):
         self.root = root
-        self.root.title("Virtual Dean Office - Login")
+        self.root.title("Виртуальный деканат")
         self.root.geometry("420x280")
         self.root.resizable(False, False)
         self.build_ui()
@@ -40,40 +40,34 @@ class LoginWindow:
         frame = ttk.Frame(self.root, padding=20)
         frame.pack(fill="both", expand=True)
 
-        ttk.Label(frame, text="Virtual Dean Office", font=("Arial", 16, "bold")).pack(pady=(10, 20))
+        ttk.Label(frame, text="Виртуальный деканат", font=("Arial", 16, "bold")).pack(pady=(10, 20))
 
-        ttk.Label(frame, text="Username").pack(anchor="w")
+        ttk.Label(frame, text="Логин").pack(anchor="w")
         self.username_entry = ttk.Entry(frame)
         self.username_entry.pack(fill="x", pady=(5, 10))
 
-        ttk.Label(frame, text="Password").pack(anchor="w")
+        ttk.Label(frame, text="Пароль").pack(anchor="w")
         self.password_entry = ttk.Entry(frame, show="*")
         self.password_entry.pack(fill="x", pady=(5, 15))
 
-        ttk.Button(frame, text="Login", command=self.login).pack(fill="x", pady=10)
-
-        ttk.Label(
-            frame,
-            text="admin / dean / teacher / student / applicant",
-            font=("Arial", 9)
-        ).pack(pady=(10, 0))
+        ttk.Button(frame, text="Войти", command=self.login).pack(fill="x", pady=10)
 
     def login(self):
         username = self.username_entry.get().strip()
         password = self.password_entry.get().strip()
 
         if not username or not password:
-            messagebox.showwarning("Warning", "Enter username and password")
+            messagebox.showwarning("Внимание", "Введите логин и пароль")
             return
 
         try:
             user = authenticate(username, password)
         except Exception as e:
-            messagebox.showerror("DB Error", str(e))
+            messagebox.showerror("Ошибка БД", str(e))
             return
 
         if not user:
-            messagebox.showerror("Error", "Invalid username or password")
+            messagebox.showerror("Ошибка", "Неверный логин или пароль")
             return
 
         self.root.destroy()
@@ -86,7 +80,7 @@ class MainWindow:
     def __init__(self, root, user):
         self.root = root
         self.user = user
-        self.root.title("Virtual Dean Office")
+        self.root.title("Виртуальный деканат")
         self.root.geometry("1150x680")
         self.build_ui()
 
@@ -96,7 +90,7 @@ class MainWindow:
 
         ttk.Label(
             header,
-            text=f"User: {self.user['full_name']} | Login: {self.user['username']} | Role: {self.user['role']}",
+            text=f"Пользователель: {self.user['full_name']} | Логин: {self.user['username']} | Роль: {self.user['role']}",
             font=("Arial", 11, "bold")
         ).pack(anchor="w")
 
@@ -112,36 +106,36 @@ class MainWindow:
         role = self.user["role"]
 
         if role == "admin":
-            ttk.Button(self.menu_frame, text="Users", command=self.show_users).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Students", command=self.show_students).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Teachers", command=self.show_teachers).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Applicants", command=self.show_applicants).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Groups", command=self.show_groups).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Disciplines", command=self.show_disciplines).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Classes", command=self.show_classes).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Grades", command=self.show_grades).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Пользователи", command=self.show_users).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Студенты", command=self.show_students).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Преподаватели", command=self.show_teachers).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Абитуриенты", command=self.show_applicants).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Группы", command=self.show_groups).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Дисциплины", command=self.show_disciplines).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Пары", command=self.show_classes).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Оценки", command=self.show_grades).pack(fill="x", pady=5)
 
         elif role == "dean":
-            ttk.Button(self.menu_frame, text="Students", command=self.show_students).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Teachers", command=self.show_teachers).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Applicants", command=self.show_applicants).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Directions", command=self.show_directions).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Groups", command=self.show_groups).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Grades", command=self.show_grades).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Студенты", command=self.show_students).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Преподаватели", command=self.show_teachers).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Абитуриенты", command=self.show_applicants).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Направления", command=self.show_directions).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Группы", command=self.show_groups).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Оценки", command=self.show_grades).pack(fill="x", pady=5)
 
         elif role == "teacher":
-            ttk.Button(self.menu_frame, text="My Classes", command=self.show_teacher_classes).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="Grades", command=self.show_grades).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Мои пары", command=self.show_teacher_classes).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Оценки", command=self.show_grades).pack(fill="x", pady=5)
 
         elif role == "student":
-            ttk.Button(self.menu_frame, text="My Profile", command=self.show_student_profile).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="My Grades", command=self.show_student_grades).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Мой профиль", command=self.show_student_profile).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Мои оценки", command=self.show_student_grades).pack(fill="x", pady=5)
 
         elif role == "applicant":
-            ttk.Button(self.menu_frame, text="My Profile", command=self.show_applicant_profile).pack(fill="x", pady=5)
-            ttk.Button(self.menu_frame, text="My Directions", command=self.show_applicant_directions).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Мой профиль", command=self.show_applicant_profile).pack(fill="x", pady=5)
+            ttk.Button(self.menu_frame, text="Мои направления", command=self.show_applicant_directions).pack(fill="x", pady=5)
 
-        ttk.Button(self.menu_frame, text="Exit", command=self.root.destroy).pack(fill="x", pady=(20, 0))
+        ttk.Button(self.menu_frame, text="Выход", command=self.root.destroy).pack(fill="x", pady=(20, 0))
         self.show_welcome()
 
     def clear_content(self):
@@ -158,11 +152,11 @@ class MainWindow:
 
     def show_welcome(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Welcome to Virtual Dean Office", font=("Arial", 16, "bold")).pack(pady=20)
+        ttk.Label(self.content_frame, text="Добро пожаловать в виртуальный деканат", font=("Arial", 16, "bold")).pack(pady=20)
 
     def show_users(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Users", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Пользователи", font=("Arial", 14, "bold")).pack(pady=10)
 
         rows = fetch_users()
         tree = self.make_tree(("id", "username", "full_name", "role"), ("ID", "Username", "Full name", "Role"))
@@ -171,10 +165,10 @@ class MainWindow:
 
     def show_students(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Students", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Студенты", font=("Arial", 14, "bold")).pack(pady=10)
 
         if self.user["role"] == "admin":
-            ttk.Button(self.content_frame, text="Add Student", command=self.open_add_student_window).pack(pady=(0, 10))
+            ttk.Button(self.content_frame, text="Добавить студента", command=self.open_add_student_window).pack(pady=(0, 10))
 
         rows = fetch_students()
         tree = self.make_tree(("id", "card", "fio", "status", "enrollment", "group"), ("ID", "Card", "FIO", "Status", "Enrollment", "Group"))
@@ -184,10 +178,10 @@ class MainWindow:
 
     def show_teachers(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Teachers", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Преподаватели", font=("Arial", 14, "bold")).pack(pady=10)
 
         if self.user["role"] == "admin":
-            ttk.Button(self.content_frame, text="Add Teacher", command=self.open_add_teacher_window).pack(pady=(0, 10))
+            ttk.Button(self.content_frame, text="Добавить преподавателя", command=self.open_add_teacher_window).pack(pady=(0, 10))
 
         rows = fetch_teachers()
         tree = self.make_tree(("id", "fio", "department", "email"), ("ID", "FIO", "Department", "Email"))
@@ -197,10 +191,10 @@ class MainWindow:
 
     def show_applicants(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Applicants", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Абитуриенты", font=("Arial", 14, "bold")).pack(pady=10)
 
         if self.user["role"] == "admin":
-            ttk.Button(self.content_frame, text="Add Applicant", command=self.open_add_applicant_window).pack(pady=(0, 10))
+            ttk.Button(self.content_frame, text="Добавить абитуриента", command=self.open_add_applicant_window).pack(pady=(0, 10))
 
         rows = fetch_applicants()
         tree = self.make_tree(
@@ -213,7 +207,7 @@ class MainWindow:
 
     def show_groups(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Groups", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Группы", font=("Arial", 14, "bold")).pack(pady=10)
         rows = fetch_groups()
         tree = self.make_tree(("id", "name", "year", "course", "active"), ("ID", "Name", "Year", "Course", "Active"))
         for row in rows:
@@ -221,7 +215,7 @@ class MainWindow:
 
     def show_disciplines(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Disciplines", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Дисциплины", font=("Arial", 14, "bold")).pack(pady=10)
         rows = fetch_disciplines()
         tree = self.make_tree(("id", "name", "credits", "description"), ("ID", "Name", "Credits", "Description"))
         for row in rows:
@@ -229,7 +223,7 @@ class MainWindow:
 
     def show_classes(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Classes", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Пары", font=("Arial", 14, "bold")).pack(pady=10)
         rows = fetch_classes()
         tree = self.make_tree(("id", "discipline", "group", "teacher", "date", "start", "end", "type"),
                               ("ID", "Discipline", "Group", "Teacher", "Date", "Start", "End", "Type"))
@@ -238,7 +232,7 @@ class MainWindow:
 
     def show_teacher_classes(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="My Classes", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Мои пары", font=("Arial", 14, "bold")).pack(pady=10)
         rows = fetch_classes_for_teacher(self.user["teacher_id"])
         tree = self.make_tree(("id", "discipline", "group", "date", "start", "end", "type"),
                               ("ID", "Discipline", "Group", "Date", "Start", "End", "Type"))
@@ -247,10 +241,10 @@ class MainWindow:
 
     def show_grades(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Grades", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Оценки", font=("Arial", 14, "bold")).pack(pady=10)
 
         if self.user["role"] in ("teacher", "admin"):
-            ttk.Button(self.content_frame, text="Add Grade", command=self.open_add_grade_window).pack(pady=(0, 10))
+            ttk.Button(self.content_frame, text="Добавить оценку", command=self.open_add_grade_window).pack(pady=(0, 10))
 
         rows = fetch_grades()
         tree = self.make_tree(("id", "student", "discipline", "teacher", "grade", "date", "comment"),
@@ -260,11 +254,11 @@ class MainWindow:
 
     def show_student_profile(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="My Profile", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Мой профиль", font=("Arial", 14, "bold")).pack(pady=10)
 
         row = fetch_student_profile(self.user["student_id"])
         if not row:
-            ttk.Label(self.content_frame, text="Student profile not found").pack()
+            ttk.Label(self.content_frame, text="Профиль студента не найден").pack()
             return
 
         fio = f"{row['last_name']} {row['first_name']} {row.get('middle_name') or ''}".strip()
@@ -280,7 +274,7 @@ class MainWindow:
 
     def show_student_grades(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="My Grades", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Мои оценки", font=("Arial", 14, "bold")).pack(pady=10)
 
         rows = fetch_grades_for_student(self.user["student_id"])
         tree = self.make_tree(("discipline", "grade", "date", "comment"), ("Discipline", "Grade", "Date", "Comment"))
@@ -289,11 +283,11 @@ class MainWindow:
 
     def show_applicant_profile(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="My Applicant Profile", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Мой профиль абитуриента", font=("Arial", 14, "bold")).pack(pady=10)
 
         row = fetch_applicant_profile(self.user["applicant_id"])
         if not row:
-            ttk.Label(self.content_frame, text="Applicant profile not found").pack()
+            ttk.Label(self.content_frame, text="Профиль абитуриента не найден").pack()
             return
 
         fio = f"{row['last_name']} {row['first_name']} {row.get('middle_name') or ''}".strip()
@@ -310,7 +304,7 @@ class MainWindow:
 
     def show_applicant_directions(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="My Directions", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Мои направления", font=("Arial", 14, "bold")).pack(pady=10)
 
         rows = fetch_directions_for_applicant(self.user["applicant_id"])
         tree = self.make_tree(
@@ -329,7 +323,7 @@ class MainWindow:
 
     def show_directions(self):
         self.clear_content()
-        ttk.Label(self.content_frame, text="Directions", font=("Arial", 14, "bold")).pack(pady=10)
+        ttk.Label(self.content_frame, text="Направления", font=("Arial", 14, "bold")).pack(pady=10)
 
         rows = fetch_directions()
         tree = self.make_tree(("id", "code", "name", "level", "form", "active"),
@@ -349,15 +343,15 @@ class MainWindow:
         disciplines = fetch_discipline_choices()
         teachers = fetch_teacher_choices()
 
-        ttk.Label(frame, text="Student").pack(anchor="w")
+        ttk.Label(frame, text="Студент").pack(anchor="w")
         student_cb = ttk.Combobox(frame, state="readonly", values=[f"{x['id']} - {x['full_name']}" for x in students])
         student_cb.pack(fill="x", pady=5)
 
-        ttk.Label(frame, text="Discipline").pack(anchor="w")
+        ttk.Label(frame, text="Дисциплина").pack(anchor="w")
         discipline_cb = ttk.Combobox(frame, state="readonly", values=[f"{x['id']} - {x['name']}" for x in disciplines])
         discipline_cb.pack(fill="x", pady=5)
 
-        ttk.Label(frame, text="Teacher").pack(anchor="w")
+        ttk.Label(frame, text="Преподаватель").pack(anchor="w")
         teacher_cb = ttk.Combobox(frame, state="readonly", values=[f"{x['id']} - {x['full_name']}" for x in teachers])
         teacher_cb.pack(fill="x", pady=5)
 
@@ -368,11 +362,11 @@ class MainWindow:
                     teacher_cb.configure(state="disabled")
                     break
 
-        ttk.Label(frame, text="Grade").pack(anchor="w")
+        ttk.Label(frame, text="Оценка").pack(anchor="w")
         grade_entry = ttk.Entry(frame)
         grade_entry.pack(fill="x", pady=5)
 
-        ttk.Label(frame, text="Comment").pack(anchor="w")
+        ttk.Label(frame, text="Комментарий").pack(anchor="w")
         comment_entry = ttk.Entry(frame)
         comment_entry.pack(fill="x", pady=5)
 
@@ -391,7 +385,7 @@ class MainWindow:
             except Exception as e:
                 messagebox.showerror("Error", str(e))
 
-        ttk.Button(frame, text="Save", command=save).pack(fill="x", pady=15)
+        ttk.Button(frame, text="Сохранить", command=save).pack(fill="x", pady=15)
 
     def open_add_student_window(self):
         self.open_person_window(
@@ -433,9 +427,9 @@ class MainWindow:
             try:
                 values = [e.get().strip() or None for e in entries]
                 save_callback(values)
-                messagebox.showinfo("Success", f"{title} saved")
+                messagebox.showinfo("Успешно", f"{title} сохранен")
                 window.destroy()
             except Exception as e:
-                messagebox.showerror("Error", str(e))
+                messagebox.showerror("Ошибка", str(e))
 
-        ttk.Button(frame, text="Save", command=save).pack(fill="x", pady=15)
+        ttk.Button(frame, text="Сохранить", command=save).pack(fill="x", pady=15)
